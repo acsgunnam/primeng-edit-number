@@ -1,8 +1,24 @@
 <theme-switcher />
-<p-fluid class="card flex flex-wrap gap-4">
+
     <div class="flex-auto">
         <label for="integeronly">Integer Only</label>
-        <p-inputnumber inputId="integeronly" [(ngModel)]="value1" />
+        <p-inputNumber
+        [(ngModel)]="value1"
+        [min]="1"
+        [max]="999"
+        [showButtons]="true"
+        [step]="1"
+        [useGrouping]="false"
+        [mode]="'decimal'"
+        [inputId]="'integeronly'"
+        [placeholder]="'Enter integer from 1 to 999'"
+        pTooltip="Value must be between 1 and 999"
+        [tooltipDisabled]="!isOverMax"
+        tooltipPosition="right"
+        tooltipEvent="focus"
+      >
+      </p-inputNumber>
+          
     </div>
     <div class="flex-auto">
         <label for="withoutgrouping">Without Grouping</label>
@@ -16,4 +32,25 @@
         <label for="minmax">Min-Max Boundaries</label>
         <p-inputnumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
     </div>
-</p-fluid>
+    <form [formGroup]="form">
+        <p-inputNumber
+          inputId="integeronly"
+          formControlName="value"
+          [min]="1"
+          [max]="999"
+          [showButtons]="true"
+          [step]="1"
+          [useGrouping]="false"
+          [mode]="'decimal'"
+          [placeholder]="'1 to 999'"
+          pTooltip="Value must be between 1 and 999"
+          [tooltipDisabled]="!showTooltip"
+
+          tooltipPosition="right"
+ 
+
+        ></p-inputNumber>
+        <p *ngIf="isInvalid()" style="color: red; margin-top: 8px;">Value must be an integer between 1 and 999</p>
+      </form>
+      <p>Value: {{ form.get('value')?.value }}</p>
+      
